@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>For Yasmine</title> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:ital,wght@0,200;0,300;0,400;1,300&display=swap" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> </head> <body> <div class="floating-hearts"></div> <main class="container"> <header class="header"> <h1 class="main-title">Yasmine</h1> <p class="subtitle">Every story is better with you in it.</p> </header>
+    text
+        <section class="content">
+            <div class="image-placeholder glow">
+                <div class="placeholder-icon"><i class="fas fa-heart"></i></div>
+                <p class="placeholder-text">A picture of you belongs here</p>
+            </div>
+    
+            <div class="text-section">
+                <div class="glass-card intro">
+                    <h2><i class="fas fa-star fa-xs"></i> My Dearest</h2>
+                    <p>From the moment our paths crossed, the world gained new colors and the days gained new meaning. Your smile is my favorite sunrise, your voice my most cherished melody.</p>
+                </div>
+    
+                <div class="glass-card poetry">
+                    <h2><i class="fas fa-feather-alt fa-xs"></i> A Whisper to Your Heart</h2>
+                    <p>You are the quiet verse in the poem of my life, the soft light that guides me through the gentle dusk. In your eyes, I found a universe more captivating than any starry sky, a peace more profound than any silent dawn. My love for you is a timeless river, flowing from the deepest part of my soul, endless and true.</p>
+                </div>
+    
+                <div class="glass-card list-section">
+                    <h2><i class="fas fa-gift fa-xs"></i> Things I Love About You</h2>
+                    <ul class="love-list">
+                        <li><span class="heart-bullet">❤</span> The way your laughter fills a room with light.</li>
+                        <li><span class="heart-bullet">❤</span> The kindness you show to every soul you meet.</li>
+                        <li><span class="heart-bullet">❤</span> The depth and dreaminess in your eyes.</li>
+                        <li><span class="heart-bullet">❤</span> Your strength, gentle yet unbreakable.</li>
+                        <li><span class="heart-bullet">❤</span> Simply being you, perfectly and completely.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    
+        <footer class="footer">
+            <p class="footer-text">Made with <span class="pulse-heart">❤</span> Forever & Always.</p>
+        </footer>
+    </main>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 25%, #f8e1f7 50%, #e8f4ff 100%);
+            color: #5a3d5c;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+    
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+    
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            animation: fadeInDown 1.5s ease;
+        }
+    
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(4rem, 10vw, 7rem);
+            font-weight: 700;
+            color: #d14d7a;
+            text-shadow: 2px 2px 8px rgba(209, 77, 122, 0.3);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+    
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: #8a5a7a;
+        }
+    
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+    
+        @media (min-width: 768px) {
+            .content {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 60px;
+            }
+            .text-section {
+                flex: 1;
+                max-width: 600px;
+            }
+        }
+    
+        .image-placeholder {
+            width: 280px;
+            height: 380px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed rgba(209, 77, 122, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+    
+        .glow {
+            box-shadow: 0 0 30px rgba(255, 182, 193, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+    
+        .placeholder-icon {
+            font-size: 4rem;
+            color: #d14d7a;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+    
+        .placeholder-text {
+            font-style: italic;
+            color: #8a5a7a;
+            text-align: center;
+            font-weight: 300;
+        }
+    
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+    
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.12);
+        }
+    
+        .glass-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 1.5rem;
+            color: #b35680;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    
+        .glass-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #5a3d5c;
+            font-weight: 300;
+        }
+    
+        .poetry p {
+            font-style: italic;
+            line-height: 1.8;
+        }
+    
+        .love-list {
+            list-style: none;
+            padding-left: 0;
+        }
+    
+        .love-list li {
+            padding: 8px 0;
+            font-size: 1.05rem;
+            color: #5a3d5c;
+            display: flex;
+            align-items: flex-start;
+            font-weight: 300;
+        }
+    
+        .heart-bullet {
+            color: #ff6b9d;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+    
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            animation: fadeIn 2s ease;
+        }
+    
+        .footer-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #d14d7a;
+            font-weight: 700;
+        }
+    
+        .pulse-heart {
+            color: #ff0000;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+    
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heartsContainer = document.querySelector('.floating-hearts');
+            const heartCount = 25;
+    
+            for (let i = 0; i < heartCount; i++) {
+                createFloatingHeart();
+            }
+    
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.style.position = 'absolute';
+                heart.style.color = `rgba(${210 + Math.random() * 45}, ${77 + Math.random() * 50}, ${122 + Math.random() * 50}, ${0.4 + Math.random() * 0.4})`;
+                heart.style.fontSize = `${15 + Math.random() * 25}px`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                heart.style.zIndex = '1';
+                heart.style.pointerEvents = 'none';
+                heart.style.userSelect = 'none';
+    
+                const duration = 15 + Math.random() * 20;
+                const delay = Math.random() * 5;
+                const driftX = (Math.random() - 0.5) * 40;
+    
+                heart.style.animation = `floatHeart ${duration}s ease-in-out ${delay}s infinite`;
+    
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes floatHeart {
+                        0% {
+                            transform: translate(0, 100vh) rotate(0deg);
+                            opacity: 0;
+                        }
+                        10% {
+                            opacity: ${0.5 + Math.random() * 0.5};
+                        }
+                        90% {
+                            opacity: ${0.5 + Math.random() * 0.5};
+                        }
+                        100% {
+                            transform: translate(${driftX}vw, -100px) rotate(${360 + Math.random() * 360}deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                heartsContainer.appendChild(heart);
+            }
+        });
+    </script>
+    </body> </html>
+    
