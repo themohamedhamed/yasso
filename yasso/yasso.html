@@ -205,3 +205,210 @@
 
 </body>
 </html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>For You — Yasmine</title>
+  <style>
+    :root {
+      --bg1: #0f172a;
+      --bg2: #331a3d;
+      --accent: #ff6b9a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: radial-gradient(circle at 10% 10%, rgba(255,107,154,0.12), transparent 10%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      font-family: Inter, system-ui, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      width: min(900px, 100%);
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(7px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hearts { position: absolute; inset: 0; pointer-events: none; }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .photo {
+      width: 150px; height: 150px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .photo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .subtitle { opacity: 0.9; margin-top: 6px; }
+
+    .content {
+      margin-top: 24px;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 300px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 18px;
+      border-radius: 12px;
+    }
+
+    .poem { line-height: 1.6; font-size: 16px; }
+
+    .small-title { opacity: .9; margin-bottom: 8px; font-size: 14px; }
+
+    ul { padding-left: 20px; }
+
+    .btn {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      background: linear-gradient(90deg, var(--accent), #ff8fb2);
+      color: #111;
+      font-weight: 600;
+    }
+
+    footer { margin-top: 20px; text-align: center; opacity: .8; font-size: 14px; }
+
+    /* ----------- MOBILE FIXES ----------- */
+    @media (max-width: 780px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      h1 { font-size: 24px; }
+
+      .photo {
+        width: 130px; height: 130px;
+      }
+
+      body {
+        padding: 15px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    /* Hearts animation */
+    @keyframes floatUp {
+      0% { transform: translateY(40vh) scale(.5) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translateY(-40vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .heart {
+      position: absolute;
+      background: var(--accent);
+      width: 18px; height: 18px;
+      transform: rotate(45deg);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="hearts"></div>
+
+    <header>
+      <div class="photo">
+        <img src="image/yasso.jpeg" alt="">
+      </div>
+      <div>
+        <h1>For You, Yasmine ❤️</h1>
+        <div class="subtitle">A small page just to say: you're my favorite, always.</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="panel">
+        <div class="poem">
+          <p>Every sunrise is softer with you in it. You make simple moments feel unforgettable, and even silence with you feels warm.</p>
+          <p>Thank you for being the gentle, bright part of every day. I’ll keep learning the little things that make you smile.</p>
+          <p style="font-weight:700; margin-top:10px;">— With all my heart, always</p>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div class="small-title">Things I love about you</div>
+        <ul>
+          <li>Your laugh that lights everything</li>
+          <li>The way you care deeply</li>
+          <li>How you make any plan an adventure</li>
+          <li>Your kind and steady heart</li>
+        </ul>
+        <a href="#" class="btn" onclick="return false;">Open my heart</a>
+      </aside>
+    </div>
+
+    <footer>Made with love 💌</footer>
+  </div>
+
+  <script>
+    const container = document.querySelector('.hearts');
+    function r(a,b){return Math.random()*(b-a)+a;}
+
+    for(let i=0;i<22;i++){
+      const h = document.createElement('div');
+      h.className = "heart";
+      const size = r(14,34);
+      h.style.width = size+"px";
+      h.style.height = size+"px";
+      h.style.left = r(5,95)+"%";
+      h.style.top = r(60,130)+"%";
+      h.style.animation = `floatUp ${r(7,15)}s ${r(0,6)}s linear forwards`;
+      container.appendChild(h);
+    }
+  </script>
+
+</body>
+</html>
