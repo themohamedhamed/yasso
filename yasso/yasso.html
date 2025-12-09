@@ -2,93 +2,206 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>For You — A Little Love Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>For You — Yasmine</title>
   <style>
-    :root{--bg1:#0f172a;--bg2:#331a3d;--accent:#ff6b9a}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#fff}
-    body{background:radial-gradient(circle at 10% 10%, rgba(255,107,154,0.12), transparent 10%), linear-gradient(180deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center;padding:32px}
-    .card{width:min(980px,96vw);background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:20px;padding:28px;backdrop-filter: blur(6px);box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative;overflow:hidden}
-    header{display:flex;gap:24px;align-items:center}
-    .photo{width:170px;height:170px;border-radius:16px;flex:0 0 170px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));border:2px solid rgba(255,255,255,0.04)}
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
-    .title{flex:1}
-    h1{margin:0;font-size:28px;letter-spacing:0.4px}
-    .subtitle{margin-top:6px;opacity:0.9}
-    .hearts{position:absolute;inset:0;pointer-events:none}
-    .heart{position:absolute;width:18px;height:18px;transform:translate(-50%,-50%) rotate(45deg);background:var(--accent);border-radius:3px 3px 0 0;opacity:0.9}
-    .heart:before,.heart:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:var(--accent);top:-9px;left:0}
-    .heart:after{left: -9px;top:0}
-    .content{margin-top:22px;display:grid;grid-template-columns:1fr 320px;gap:20px}
-    .panel{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
-    .poem{font-size:16px;line-height:1.6}
-    .right .small-title{font-size:13px;opacity:0.9;margin-bottom:8px}
-    .info{font-size:14px}
-    .btn{display:inline-block;padding:10px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#ff8fb2);color:#111;font-weight:600;text-decoration:none;margin-top:14px}
-    footer{margin-top:18px;text-align:center;opacity:0.9;font-size:13px}
-    @media (max-width:880px){.content{grid-template-columns:1fr;}.photo{width:140px;height:140px}}
-    /* floating hearts animation seeds */
-    @keyframes floatUp{0%{transform:translateY(30vh) scale(0.6) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(-30vh) scale(1.1) rotate(360deg);opacity:0}}
+    :root {
+      --bg1: #0f172a;
+      --bg2: #331a3d;
+      --accent: #ff6b9a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: radial-gradient(circle at 10% 10%, rgba(255,107,154,0.12), transparent 10%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      font-family: Inter, system-ui, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      width: min(900px, 100%);
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(7px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hearts { position: absolute; inset: 0; pointer-events: none; }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .photo {
+      width: 150px; height: 150px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .photo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .subtitle { opacity: 0.9; margin-top: 6px; }
+
+    .content {
+      margin-top: 24px;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 300px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 18px;
+      border-radius: 12px;
+    }
+
+    .poem { line-height: 1.6; font-size: 16px; }
+
+    .small-title { opacity: .9; margin-bottom: 8px; font-size: 14px; }
+
+    ul { padding-left: 20px; }
+
+    .btn {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      background: linear-gradient(90deg, var(--accent), #ff8fb2);
+      color: #111;
+      font-weight: 600;
+    }
+
+    footer { margin-top: 20px; text-align: center; opacity: .8; font-size: 14px; }
+
+    /* ----------- MOBILE FIXES ----------- */
+    @media (max-width: 780px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      h1 { font-size: 24px; }
+
+      .photo {
+        width: 130px; height: 130px;
+      }
+
+      body {
+        padding: 15px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    /* Hearts animation */
+    @keyframes floatUp {
+      0% { transform: translateY(40vh) scale(.5) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translateY(-40vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .heart {
+      position: absolute;
+      background: var(--accent);
+      width: 18px; height: 18px;
+      transform: rotate(45deg);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
   </style>
 </head>
+
 <body>
   <div class="card">
-    <div class="hearts" aria-hidden="true"></div>
+    <div class="hearts"></div>
+
     <header>
       <div class="photo">
-        <img id="her-photo" src="image/yasso.jpeg" alt="Her photo">
+        <img src="image/yasso.jpeg" alt="">
       </div>
-      <div class="title">
+      <div>
         <h1>For You, Yasmine ❤️</h1>
-        <div class="subtitle">A small page made just to say: you are my favorite. Always.</div>
+        <div class="subtitle">A small page just to say: you're my favorite, always.</div>
       </div>
     </header>
 
     <div class="content">
       <div class="panel">
         <div class="poem">
-          <p>Every sunrise feels warmer because of you — a simple smile, a quiet strength, the way you turn ordinary moments into memories I keep. This page is tiny, but the feelings are huge.</p>
-
-          <p>With you, every laugh is brighter and every silence is full of comfort. Thank you for being you. I promise to keep discovering the little things that make you smile.</p>
-
-          <p style="margin-top:12px;font-weight:700">— Always, with all my heart</p>
+          <p>Every sunrise is softer with you in it. You make simple moments feel unforgettable, and even silence with you feels warm.</p>
+          <p>Thank you for being the gentle, bright part of every day. I’ll keep learning the little things that make you smile.</p>
+          <p style="font-weight:700; margin-top:10px;">— With all my heart, always</p>
         </div>
       </div>
 
-      <aside class="panel right">
-        <div class="small-title">Little things I love about you</div>
-        <ul class="info">
-          <li>Your laugh that lights the room</li>
-          <li>The way you care for others</li>
-          <li>How you make every plan an adventure</li>
-          <li>Your quiet strength and kind heart</li>
+      <aside class="panel">
+        <div class="small-title">Things I love about you</div>
+        <ul>
+          <li>Your laugh that lights everything</li>
+          <li>The way you care deeply</li>
+          <li>How you make any plan an adventure</li>
+          <li>Your kind and steady heart</li>
         </ul>
-        <a class="btn" href="#" onclick="return false">Open my heart</a>
+        <a href="#" class="btn" onclick="return false;">Open my heart</a>
       </aside>
     </div>
 
-    <footer>Made with a lot of love 💌</footer>
+    <footer>Made with love 💌</footer>
   </div>
 
   <script>
-    const container = document.querySelector('.hearts')
-    function rand(min,max){return Math.random()*(max-min)+min}
+    const container = document.querySelector('.hearts');
+    function r(a,b){return Math.random()*(b-a)+a;}
+
     for(let i=0;i<22;i++){
-      const h = document.createElement('div')
-      h.className='heart'
-      const left = rand(10,95)
-      const size = rand(12,34)
-      h.style.left=left+'%'
-      h.style.width = size+'px'
-      h.style.height = size+'px'
-      h.style.top = rand(60,120)+'%'
-      const delay = rand(0,6)
-      const duration = rand(6,14)
-      h.style.animation = `floatUp ${duration}s ${delay}s linear forwards`
-      h.style.opacity=0
-      container.appendChild(h)
+      const h = document.createElement('div');
+      h.className = "heart";
+      const size = r(14,34);
+      h.style.width = size+"px";
+      h.style.height = size+"px";
+      h.style.left = r(5,95)+"%";
+      h.style.top = r(60,130)+"%";
+      h.style.animation = `floatUp ${r(7,15)}s ${r(0,6)}s linear forwards`;
+      container.appendChild(h);
     }
   </script>
+
 </body>
 </html>
