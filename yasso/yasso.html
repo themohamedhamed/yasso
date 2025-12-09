@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>For You — Yasmine</title>
   <style>
     :root {
@@ -11,140 +11,416 @@
       --accent: #ff6b9a;
     }
 
-    * { box-sizing: border-box; }
+    * { 
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
 
     body {
       margin: 0;
-      padding: 20px;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
       background: radial-gradient(circle at 10% 10%, rgba(255,107,154,0.12), transparent 10%),
                   linear-gradient(180deg, var(--bg1), var(--bg2));
-      font-family: Inter, system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
       color: #fff;
       display: flex;
       justify-content: center;
+      align-items: center;
       min-height: 100vh;
+      min-height: -webkit-fill-available;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overscroll-behavior: none;
     }
 
     .card {
-      width: min(900px, 100%);
-      background: rgba(255,255,255,0.03);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(7px);
-      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+      width: 100%;
+      max-width: 500px;
+      margin: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 24px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .hearts { position: absolute; inset: 0; pointer-events: none; }
+    .hearts { 
+      position: absolute; 
+      inset: 0; 
+      pointer-events: none; 
+      overflow: hidden;
+      z-index: 0;
+    }
 
     header {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+      gap: 16px;
       text-align: center;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* FIXED: Responsive photo container */
+    .photo-container {
+      position: relative;
+      width: 100%;
+      max-width: 180px;
+      margin: 0 auto;
     }
 
     .photo {
-      width: 150px; height: 150px;
-      border-radius: 16px;
+      width: 100%;
+      padding-bottom: 100%; /* Creates square aspect ratio */
+      border-radius: 20px;
       overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.05);
-      background: rgba(255,255,255,0.04);
+      border: 3px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      position: relative;
     }
 
+    .photo:active {
+      transform: scale(0.98);
+    }
+
+    /* FIXED: Responsive image */
     .photo img {
-      width: 100%; height: 100%; object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Fallback for broken images */
+    .photo::before {
+      content: "❤️";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      z-index: -1;
+      opacity: 0.3;
     }
 
     h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: clamp(1.5rem, 5vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
-    .subtitle { opacity: 0.9; margin-top: 6px; }
+    .subtitle { 
+      opacity: 0.9; 
+      margin-top: 8px;
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      line-height: 1.5;
+      max-width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
 
     .content {
-      margin-top: 24px;
-      display: grid;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
       gap: 20px;
-      grid-template-columns: 1fr 300px;
+      position: relative;
+      z-index: 1;
     }
 
     .panel {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 18px;
-      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 18px;
+      transition: all 0.2s ease;
     }
 
-    .poem { line-height: 1.6; font-size: 16px; }
+    .panel:active {
+      transform: scale(0.995);
+      background: rgba(255,255,255,0.07);
+    }
 
-    .small-title { opacity: .9; margin-bottom: 8px; font-size: 14px; }
+    .poem { 
+      line-height: 1.7; 
+      font-size: clamp(1rem, 3vw, 1.1rem);
+      text-align: center;
+    }
 
-    ul { padding-left: 20px; }
+    .poem p {
+      margin: 0 0 18px 0;
+    }
+
+    .poem p:last-child {
+      margin-bottom: 0;
+    }
+
+    .small-title { 
+      opacity: .95; 
+      margin-bottom: 15px; 
+      font-size: clamp(1rem, 3vw, 1.1rem);
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    ul { 
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: clamp(1rem, 3vw, 1.05rem);
+      padding-left: 5px;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
 
     .btn {
-      margin-top: 12px;
       display: inline-block;
-      padding: 10px 16px;
-      border-radius: 10px;
+      padding: clamp(14px, 4vw, 16px) clamp(24px, 6vw, 32px);
+      border-radius: 50px;
       text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), #ff8fb2);
+      background: linear-gradient(135deg, var(--accent), #ff8fb2);
       color: #111;
       font-weight: 600;
+      font-size: clamp(1rem, 3vw, 1.1rem);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 107, 154, 0.4);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+      min-width: min(200px, 80vw);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
-    footer { margin-top: 20px; text-align: center; opacity: .8; font-size: 14px; }
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ff8fb2, var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
 
-    /* ----------- MOBILE FIXES ----------- */
-    @media (max-width: 780px) {
-      .content {
-        grid-template-columns: 1fr;
-      }
+    .btn:active {
+      transform: scale(0.95) translateY(2px);
+      box-shadow: 0 4px 15px rgba(255, 107, 154, 0.3);
+    }
 
-      h1 { font-size: 24px; }
+    .btn:active::after {
+      opacity: 1;
+    }
 
-      .photo {
-        width: 130px; height: 130px;
-      }
+    footer { 
+      margin-top: 25px; 
+      text-align: center; 
+      opacity: .8; 
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+    }
 
+    /* ----------- MOBILE OPTIMIZATIONS ----------- */
+    @media (max-width: 480px) {
       body {
-        padding: 15px;
+        padding: 10px;
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
       }
-
+      
       .card {
-        padding: 20px;
+        padding: 18px;
+        border-radius: 20px;
+        margin: 5px;
+      }
+      
+      .photo-container {
+        max-width: 140px;
+      }
+      
+      .panel {
+        padding: 18px;
       }
     }
 
-    /* Hearts animation */
+    @media (max-width: 350px) {
+      .card {
+        padding: 16px;
+      }
+      
+      .photo-container {
+        max-width: 120px;
+      }
+      
+      .btn {
+        min-width: min(160px, 85vw);
+      }
+    }
+
+    /* iPhone notch/safe area support */
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: max(10px, env(safe-area-inset-left));
+        padding-right: max(10px, env(safe-area-inset-right));
+        padding-top: max(10px, env(safe-area-inset-top));
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+      }
+    }
+
+    /* Hearts animation - optimized for mobile */
     @keyframes floatUp {
-      0% { transform: translateY(40vh) scale(.5) rotate(0deg); opacity: 0; }
-      15% { opacity: 1; }
-      100% { transform: translateY(-40vh) scale(1.2) rotate(360deg); opacity: 0; }
+      0% { 
+        transform: translateY(100vh) scale(.5) rotate(0deg); 
+        opacity: 0; 
+      }
+      15% { 
+        opacity: 0.9; 
+      }
+      100% { 
+        transform: translateY(-100vh) scale(1) rotate(360deg); 
+        opacity: 0; 
+      }
     }
 
     .heart {
       position: absolute;
       background: var(--accent);
-      width: 18px; height: 18px;
+      width: 18px;
+      height: 18px;
       transform: rotate(45deg);
       border-radius: 3px 3px 0 0;
+      opacity: 0;
+      filter: drop-shadow(0 2px 4px rgba(255, 107, 154, 0.3));
     }
 
     .heart::before, .heart::after {
       content: "";
       position: absolute;
-      width: 18px; height: 18px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       background: var(--accent);
     }
 
-    .heart::before { top: -9px; left: 0; }
-    .heart::after { left: -9px; top: 0; }
+    .heart::before { 
+      top: -9px; 
+      left: 0; 
+    }
+    
+    .heart::after { 
+      left: -9px; 
+      top: 0; 
+    }
+
+    /* Landscape mode */
+    @media (max-height: 500px) and (orientation: landscape) {
+      body {
+        align-items: flex-start;
+        padding-top: 20px;
+      }
+      
+      .card {
+        margin: 10px auto;
+        max-width: 90%;
+      }
+      
+      header {
+        flex-direction: row;
+        text-align: left;
+        gap: 20px;
+      }
+      
+      .photo-container {
+        max-width: 100px;
+        flex-shrink: 0;
+      }
+      
+      .content {
+        flex-direction: row;
+      }
+      
+      .panel {
+        flex: 1;
+      }
+    }
+
+    /* Reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .heart {
+        display: none;
+      }
+    }
+
+    /* Dark mode preference */
+    @media (prefers-color-scheme: light) {
+      .card {
+        background: rgba(255,255,255,0.15);
+      }
+      
+      .panel {
+        background: rgba(255,255,255,0.1);
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .card {
+        border: 2px solid rgba(255,255,255,0.3);
+      }
+      
+      .panel {
+        border: 2px solid rgba(255,255,255,0.2);
+      }
+    }
   </style>
 </head>
 
@@ -153,8 +429,17 @@
     <div class="hearts"></div>
 
     <header>
-      <div class="photo">
-        <img src="image/yasso.jpeg" alt="">
+      <div class="photo-container">
+        <div class="photo">
+          <!-- FIXED: Responsive image with srcset for different resolutions -->
+          <img 
+            src="image/yasso.jpeg" 
+            alt="Yasmine"
+            srcset="image/yasso.jpeg 1x, image/yasso.jpeg 2x"
+            loading="lazy"
+            onerror="this.style.display='none'; this.parentElement.classList.add('image-error')"
+          >
+        </div>
       </div>
       <div>
         <h1>For You, Yasmine ❤️</h1>
@@ -166,8 +451,8 @@
       <div class="panel">
         <div class="poem">
           <p>Every sunrise is softer with you in it. You make simple moments feel unforgettable, and even silence with you feels warm.</p>
-          <p>Thank you for being the gentle, bright part of every day. I’ll keep learning the little things that make you smile.</p>
-          <p style="font-weight:700; margin-top:10px;">— With all my heart, always</p>
+          <p>Thank you for being the gentle, bright part of every day. I'll keep learning the little things that make you smile.</p>
+          <p style="font-weight:700; margin-top:18px;">— With all my heart, always</p>
         </div>
       </div>
 
@@ -179,214 +464,9 @@
           <li>How you make any plan an adventure</li>
           <li>Your kind and steady heart</li>
         </ul>
-        <a href="#" class="btn" onclick="return false;">Open my heart</a>
-      </aside>
-    </div>
-
-    <footer>Made with love 💌</footer>
-  </div>
-
-  <script>
-    const container = document.querySelector('.hearts');
-    function r(a,b){return Math.random()*(b-a)+a;}
-
-    for(let i=0;i<22;i++){
-      const h = document.createElement('div');
-      h.className = "heart";
-      const size = r(14,34);
-      h.style.width = size+"px";
-      h.style.height = size+"px";
-      h.style.left = r(5,95)+"%";
-      h.style.top = r(60,130)+"%";
-      h.style.animation = `floatUp ${r(7,15)}s ${r(0,6)}s linear forwards`;
-      container.appendChild(h);
-    }
-  </script>
-
-</body>
-</html>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>For You — Yasmine</title>
-  <style>
-    :root {
-      --bg1: #0f172a;
-      --bg2: #331a3d;
-      --accent: #ff6b9a;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      background: radial-gradient(circle at 10% 10%, rgba(255,107,154,0.12), transparent 10%),
-                  linear-gradient(180deg, var(--bg1), var(--bg2));
-      font-family: Inter, system-ui, sans-serif;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    .card {
-      width: min(900px, 100%);
-      background: rgba(255,255,255,0.03);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(7px);
-      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hearts { position: absolute; inset: 0; pointer-events: none; }
-
-    header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .photo {
-      width: 150px; height: 150px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.05);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .photo img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    .subtitle { opacity: 0.9; margin-top: 6px; }
-
-    .content {
-      margin-top: 24px;
-      display: grid;
-      gap: 20px;
-      grid-template-columns: 1fr 300px;
-    }
-
-    .panel {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 18px;
-      border-radius: 12px;
-    }
-
-    .poem { line-height: 1.6; font-size: 16px; }
-
-    .small-title { opacity: .9; margin-bottom: 8px; font-size: 14px; }
-
-    ul { padding-left: 20px; }
-
-    .btn {
-      margin-top: 12px;
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), #ff8fb2);
-      color: #111;
-      font-weight: 600;
-    }
-
-    footer { margin-top: 20px; text-align: center; opacity: .8; font-size: 14px; }
-
-    /* ----------- MOBILE FIXES ----------- */
-    @media (max-width: 780px) {
-      .content {
-        grid-template-columns: 1fr;
-      }
-
-      h1 { font-size: 24px; }
-
-      .photo {
-        width: 130px; height: 130px;
-      }
-
-      body {
-        padding: 15px;
-      }
-
-      .card {
-        padding: 20px;
-      }
-    }
-
-    /* Hearts animation */
-    @keyframes floatUp {
-      0% { transform: translateY(40vh) scale(.5) rotate(0deg); opacity: 0; }
-      15% { opacity: 1; }
-      100% { transform: translateY(-40vh) scale(1.2) rotate(360deg); opacity: 0; }
-    }
-
-    .heart {
-      position: absolute;
-      background: var(--accent);
-      width: 18px; height: 18px;
-      transform: rotate(45deg);
-      border-radius: 3px 3px 0 0;
-    }
-
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .heart::before { top: -9px; left: 0; }
-    .heart::after { left: -9px; top: 0; }
-  </style>
-</head>
-
-<body>
-  <div class="card">
-    <div class="hearts"></div>
-
-    <header>
-      <div class="photo">
-        <img src="image/yasso.jpeg" alt="">
-      </div>
-      <div>
-        <h1>For You, Yasmine ❤️</h1>
-        <div class="subtitle">A small page just to say: you're my favorite, always.</div>
-      </div>
-    </header>
-
-    <div class="content">
-      <div class="panel">
-        <div class="poem">
-          <p>Every sunrise is softer with you in it. You make simple moments feel unforgettable, and even silence with you feels warm.</p>
-          <p>Thank you for being the gentle, bright part of every day. I’ll keep learning the little things that make you smile.</p>
-          <p style="font-weight:700; margin-top:10px;">— With all my heart, always</p>
+        <div class="btn-container">
+          <button class="btn" id="heartBtn">Open my heart</button>
         </div>
-      </div>
-
-      <aside class="panel">
-        <div class="small-title">Things I love about you</div>
-        <ul>
-          <li>Your laugh that lights everything</li>
-          <li>The way you care deeply</li>
-          <li>How you make any plan an adventure</li>
-          <li>Your kind and steady heart</li>
-        </ul>
-        <a href="#" class="btn" onclick="return false;">Open my heart</a>
       </aside>
     </div>
 
@@ -394,21 +474,104 @@
   </div>
 
   <script>
-    const container = document.querySelector('.hearts');
-    function r(a,b){return Math.random()*(b-a)+a;}
+    // Initialize after page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.hearts');
+      const heartBtn = document.getElementById('heartBtn');
+      
+      function r(a,b) { 
+        return Math.random() * (b - a) + a; 
+      }
 
-    for(let i=0;i<22;i++){
-      const h = document.createElement('div');
-      h.className = "heart";
-      const size = r(14,34);
-      h.style.width = size+"px";
-      h.style.height = size+"px";
-      h.style.left = r(5,95)+"%";
-      h.style.top = r(60,130)+"%";
-      h.style.animation = `floatUp ${r(7,15)}s ${r(0,6)}s linear forwards`;
-      container.appendChild(h);
-    }
+      // Create initial hearts (fewer for mobile)
+      const heartCount = window.innerWidth < 480 ? 12 : 18;
+      for(let i = 0; i < heartCount; i++) {
+        createHeart();
+      }
+      
+      function createHeart() {
+        const h = document.createElement('div');
+        h.className = "heart";
+        const size = r(12, 24);
+        h.style.width = size + "px";
+        h.style.height = size + "px";
+        h.style.left = r(0, 100) + "%";
+        h.style.top = r(100, 120) + "%";
+        
+        // Adjust animation for mobile
+        const duration = r(6, 12);
+        const delay = r(0, 4);
+        h.style.animation = `floatUp ${duration}s ${delay}s linear infinite`;
+        
+        // Random color variation
+        const hue = 340 + r(-10, 10);
+        const saturation = 70 + r(0, 30);
+        const lightness = 60 + r(0, 20);
+        h.style.background = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        h.style.filter = `drop-shadow(0 2px 4px hsla(${hue}, ${saturation}%, ${lightness}%, 0.4))`;
+        
+        container.appendChild(h);
+      }
+      
+      // Button interaction with haptic feedback
+      heartBtn.addEventListener('click', function() {
+        // Haptic feedback if available
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+        
+        // Create burst of hearts on click
+        const burstCount = window.innerWidth < 480 ? 8 : 12;
+        for(let i = 0; i < burstCount; i++) {
+          setTimeout(() => {
+            createHeart();
+          }, i * 80);
+        }
+        
+        // Button feedback
+        this.style.transform = 'scale(0.95) translateY(2px)';
+        this.innerHTML = '❤️ You are loved ❤️';
+        
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 300);
+        
+        // Reset button text after 3 seconds
+        setTimeout(() => {
+          this.innerHTML = 'Open my heart';
+        }, 3000);
+      });
+      
+      // Touch feedback for panels
+      const panels = document.querySelectorAll('.panel, .photo');
+      panels.forEach(element => {
+        element.addEventListener('touchstart', function() {
+          this.style.opacity = '0.95';
+        });
+        
+        element.addEventListener('touchend', function() {
+          setTimeout(() => {
+            this.style.opacity = '1';
+          }, 150);
+        });
+      });
+      
+      // Prevent zoom on double tap
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function(event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Image error handling
+      const image = document.querySelector('.photo img');
+      image.addEventListener('error', function() {
+        console.log('Image failed to load, showing fallback');
+      });
+    });
   </script>
-
 </body>
 </html>
